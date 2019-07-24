@@ -2,12 +2,16 @@ var serviceModel = require('./../models/services.model');
 
 exports.services_all_get = function(req, res){
     serviceModel.findAll({
-        attributes:['id', 'name', 'image', 'happyEnd']
+        attributes:['id', 'name', 'description', 'image', 'cost', 'happyEnd']
     })
     .then(data => res.json(data))
-    .catch(data => res.status(500, err))
+    .catch(err => res.status(500).send(err))
 }
 
 exports.services_get_detail = function(req, res){
-    //res.send(req.params.id)
+    serviceModel.findByPk(req.params.id, {
+        attributes:['id', 'name', 'description', 'image', 'cost', 'happyEnd']
+    })
+    .then(data => res.json(data))
+    .catch(err => res.status(500).send(err))
 }
